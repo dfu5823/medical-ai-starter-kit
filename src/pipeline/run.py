@@ -1,3 +1,5 @@
+"""Experiment orchestrator: load config, build data/model, train, evaluate, and log outputs."""
+
 import os
 from typing import Optional
 
@@ -28,6 +30,17 @@ except Exception:
 
 
 def run_experiment(config_path: Optional[str] = None):
+    """Execute a full training + eval cycle based on a YAML config.
+
+    Steps:
+    1) Load config, seed everything, and prepare the output directory.
+    2) Build dataloaders (with optional dataset subsetting).
+    3) Build the model, loss, and optimizer.
+    4) Optionally log a gallery of sample images.
+    5) Train for N epochs with live logging.
+    6) Evaluate on validation data, compute metrics, and log artifacts/figures.
+    7) Close W&B run (if enabled) and return metrics.
+    """
     cfg = load_config(config_path)
     set_seed(int(cfg["seed"]))
 
@@ -98,17 +111,23 @@ def run_experiment(config_path: Optional[str] = None):
         history["val_loss"].append(val_loss)
         history["val_acc"].append(val_acc)
 
-        print(f"[Epoch {epoch+1}/{epochs}] "
-              f"train_loss={train_loss:.4f} train_acc={train_acc:.4f} | "
-              f"val_loss={val_loss:.4f} val_acc={val_acc:.4f}")
+        print(
+            f"[Epoch {epoch+1}/{epochs}] "
+            f"train_loss={train_loss:.4f} train_acc={train_acc:.4f} | "
+            f"val_loss={val_loss:.4f} val_acc={val_acc:.4f}"
+        )
 
-        wandb_log_safe(run, {
-            "train/loss": train_loss,
-            "train/accuracy": train_acc,
-            "val/loss": val_loss,
-            "val/accuracy": val_acc,
-            "epoch": epoch,
-        }, step=epoch)
+        wandb_log_safe(
+            run,
+            {
+                "train/loss": train_loss,
+                "train/accuracy": train_acc,
+                "val/loss": val_loss,
+                "val/accuracy": val_acc,
+                "epoch": epoch,
+            },
+            step=epoch,
+        )
 
     # Full evaluation
     print("Evaluating final model on validation set...")
@@ -119,11 +138,15 @@ def run_experiment(config_path: Optional[str] = None):
     print(f"  macro_f1:  {metrics['macro_f1']:.4f}")
     print(f"  macro_auc: {metrics['macro_auc_ovr']:.4f}")
 
-    wandb_log_safe(run, {
-        "metrics/accuracy": metrics["accuracy"],
-        "metrics/macro_f1": metrics["macro_f1"],
-        "metrics/macro_auc_ovr": metrics["macro_auc_ovr"],
-    }, step=epochs)
+    wandb_log_safe(
+        run,
+        {
+            "metrics/accuracy": metrics["accuracy"],
+            "metrics/macro_f1": metrics["macro_f1"],
+            "metrics/macro_auc_ovr": metrics["macro_auc_ovr"],
+        },
+        step=epochs,
+    )
     for c, a in metrics["per_class_auc_ovr"].items():
         name = class_names[int(c)]
         wandb_log_safe(run, {f"metrics/auc_ovr/{name}": a}, step=epochs)
