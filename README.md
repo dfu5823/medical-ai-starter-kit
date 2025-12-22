@@ -1,74 +1,62 @@
-````markdown
-# DermMNIST Workflow Demo (CPU-Friendly) — MD with Distinction in AI Session 1
+# Medical AI Starter Kit
+## MD with Distinction in AI
+## Session 1: Launching Your AI Research Workflow
 
-This repo is an **optional** pre-session activity for **Session 1: Launching Your AI Research Workflow**.  
-It’s designed to help you **feel comfortable** during the live walkthrough and (if you want) to **shine** by having your own experiment run to reference and compare with others.
+Created: Dec 2025 
+Last Modified: Dec 2025
 
-**No pressure:** it’s totally fine to try and get stuck, or to only complete part of it. Even opening the repo + config and seeing how it’s structured is useful.
+Optional pre-session activity for **Session 1: Launching Your AI Research Workflow**. Run a quick experiment so you can follow along  during the live walkthrough on Jan 5th 2025.
+
+No pressure: even opening the repo and skimming the structure is useful.
 
 ---
 
 ## Who this is for
 
-This is for medical students who:
-- are curious about AI research workflows and want a concrete example
-- have basic coding experience (even minimal) but limited deep learning experience
-- want to learn how real ML projects are organized and tracked (e.g., Weights & Biases)
+- Medical students curious about AI health research workflows who want a concrete example
+- People with basic coding experience (even minimal) but limited deep learning background
+- Anyone who wants to see how real ML projects are organized, tracked, and compared
 
-You do **not** need deep learning knowledge to do this. The goal is workflow + structure.
+You do **not** need deep learning knowledge. The focus is on workflow and structure.
 
 ---
 
 ## Time + hardware expectations
 
 ### Time
-
-- **If you’ve set up AI/ML research environments before:**  
-  ~5–10 minutes start to finish
-- **If you’ve done some Python but are new to AI/ML tooling:**  
-  ~20–40 minutes (first-time setup, minor fixes)
-- **If you’re very new or hit setup issues:**  
-  Up to ~60 minutes is normal
+- **Experienced with AI/ML setups:** ~5–10 minutes
+- **Some Python, new to AI/ML tooling:** ~20–40 minutes
+- **Very new / hit setup issues:** up to ~60 minutes is normal
 
 Any amount of progress is fine — this is optional and meant as a reference for the live session.
 
 ### Hardware
 - **CPU-only:** yes
-- **Disk:** plan for **~30-50 MB** (dataset + environment caches vary)
-- **On my laptop:** the “fast” run took **~2 minutes** (CPU-only)
+- **Disk:** plan for ~30–50 MB (dataset + environment caches vary)
+- On a Mac laptop, the baseline run took ~2 minutes (CPU-only)
 
-> This repo has been tested on **Mac**. It should work on Windows/Linux too, but you may hit setup differences (especially with conda and shell scripts). That’s okay.
+> Tested on **Mac**. Should work on Windows/Linux, but setup steps (conda, shell scripts) may differ slightly.
 
 ---
 
 ## Why this matters
 
-In medical school, people often learn AI “concepts” but not the practical skills required to actually:
-- set up a project cleanly
+Many courses teach AI concepts but skip the practical skills needed to:
+- set up projects cleanly
 - run experiments reproducibly
 - track results professionally
-- compare runs, avoid confusion, and collaborate with others
+- compare runs without confusion
 
-This repo is a **small, realistic template** you can reuse for future research projects.
+This repo is a small, realistic template you can reuse for future research projects.
 
 ---
 
 ## What you’ll learn
 
-By doing (or attempting) this pre-assignment, you’ll practice:
-
-- **How to run a full ML experiment from a config file**
-- **How a research repo is organized** (data → model → training → evaluation → visualization)
-- **How to track experiments using Weights & Biases (W&B)** for comparisons and sharing
-- **How to make a controlled change** (one variable) and see how experimental results change
-
----
-
-## Assignment (simple)
-
-**Goal:** Run **one** experiment, then change **one** variable in the config and rerun.
-
-Here’s a **slightly more guided version** of the assignment that helps complete beginners without slowing down experienced folks. It adds just enough hand-holding at the right moments and keeps everything concise.
+- How to run a full ML experiment from a config file
+- How a research repo is organized (data → model → training → evaluation → visualization)
+- How to track experiments using Weights & Biases (W&B)
+- How to make a controlled change and see how results shift
 
 ---
 
@@ -76,348 +64,214 @@ Here’s a **slightly more guided version** of the assignment that helps complet
 
 **Goal:** Run **one** experiment, then change **one** variable in the config and rerun it.
 
----
-
 ### Step 0 — Install essentials (one-time)
-
-You’ll need:
-
-* **VSCode (code editor)**
-  [https://code.visualstudio.com](https://code.visualstudio.com)
-  → download, install, open it once
-
-* **Git (to clone the repo)**
-  [https://git-scm.com/downloads](https://git-scm.com/downloads)
-  → install with default settings
-
-* **Conda (Python + environment manager)**
-  [https://docs.conda.io/en/latest/miniconda.html](https://docs.conda.io/en/latest/miniconda.html)
-  → install Miniconda (recommended)
-
-* **Weights & Biases (experiment tracking)**
-  [https://wandb.ai](https://wandb.ai)
-  → free account, takes ~1 minute
-
-> If you’ve done any coding before, you likely already have some of these.
-
----
+- **VSCode:** https://code.visualstudio.com
+- **Git:** https://git-scm.com/downloads
+- **Conda:** https://docs.conda.io/en/latest/miniconda.html (Miniconda recommended)
+- **Weights & Biases:** https://wandb.ai (free account, ~1 minute)
 
 ### Step 1 — Open VSCode + clone the repo
-
-1. Open **VSCode**
-2. Choose **File → Open Folder…**
-3. Pick or create a folder on your computer where you want this project to live
-   (e.g. `Documents/AI/`)
-4. Open the **Terminal** inside VSCode:
-
-   * Top menu → **Terminal → New Terminal**
-
-In the terminal, run:
-
-```bash
-git clone <YOUR_REPO_URL>
-cd dermamnist-workflow-demo
-```
-
-You should now see the project files in the VSCode file explorer.
-
----
+1. Open **VSCode**.
+2. File → **Open Folder…** and choose where the project should live.
+3. Open a terminal inside VSCode (Terminal → New Terminal) and run:
+   ```bash
+   git clone https://github.com/dfu5823/medical-ai-starter-kit
+   cd medical-ai-starter-kit
+   ```
 
 ### Step 2 — Create the environment
-
-In the VSCode terminal:
-
 ```bash
 bash setup.sh
-```
-
-This will:
-
-* create a Python environment
-* install all required packages
-
-When it finishes, activate the environment if needed:
-
-```bash
 conda activate dermamnist-demo
 ```
+This creates the Python environment and installs required packages.
 
----
-
-### Step 3 — (Recommended) Login to Weights & Biases
-
+### Step 3 — (Recommended) Login to Weights & Biases (only needs to be done once)
 ```bash
 wandb login
 ```
-
-This lets you view results in your browser.
-
-If you **don’t** want to use W&B, open `configs/baseline.yaml` and set:
-
+If you don’t want W&B, set in `configs/baseline.yaml`:
 ```yaml
 wandb:
   enabled: false
 ```
 
----
-
 ### Step 4 — Run the baseline experiment
-
-In the terminal:
-
 ```bash
 python train.py --config configs/baseline.yaml
 ```
-
-You should see:
-
-* training progress printed in the terminal
-* figures saved to `./outputs/`
-* (if W&B enabled) a link printed to your W&B dashboard
-
-Let it finish — on CPU this should take only a few minutes.
-
----
+You should see training progress, figures in `./outputs/`, and (if enabled) a W&B link.
 
 ### Step 5 — Make your own config + change ONE knob
+1. Copy the baseline config to a new file, e.g. `configs/my_experiment.yaml`. (Refer to sample_experiment.yaml for an example)
+2. Change a single setting, then rerun:
+   ```bash
+   python train.py --config configs/my_experiment.yaml
+   ```
 
-Instead of editing the baseline file directly:
-
-1. Copy it:
-
-   * Right-click `configs/baseline.yaml`
-   * Duplicate it
-2. Rename the copy (for example):
-
-   * `configs/my_experiment.yaml`
-
-Open your new file and change **one** thing.
-
-**Easy / fun knobs to try:**
-
-* `seed` → different random result
-* `aug.aug_strength` → `light` → `medium` → `chaos`
-* `data.image_size` → `128` → `256` (higher resolution, slower)
-* `model.freeze_backbone` → `true` → `false` *(slower but interesting)*
-* `train.lr` → `1e-3` → `3e-4`
-* `data.subset_train` → `2000` → `800` (faster)
-* `train.epochs` → `2` → `5`
-
-Then rerun **using your new config**:
-
-```bash
-python train.py --config configs/my_experiment.yaml
-```
-
-In W&B, you’ll now see **two runs** that you can compare side-by-side.
-
----
+Easy knobs to try:
+- `seed` → different random result
+- `aug.aug_strength` → `light` → `medium` → `chaos`
+- `data.image_size` → `128` → `256` (higher resolution, slower)
+- `model.freeze_backbone` → `true` → `false` (slower but interesting)
+- `train.lr` → `1e-3` → `3e-4`
+- `data.subset_train` → `2000` → `800` (faster)
+- `train.epochs` → `2` → `5`
 
 ### Step 6 — (Optional) Turn on AI coding help in VSCode
-
-If you want:
-
-* **GitHub Copilot**
-  VSCode → Extensions → search “GitHub Copilot” → enable
-* **OpenAI / Codex-style tools** (Cursor, etc.)
-  Optional; not required for this assignment
-
-These can help explain files or answer questions, but you don’t need them.
+- **GitHub Copilot:** VSCode → Extensions (Left Toolbar) → search “GitHub Copilot”
+- **OpenAI/Codex-style tools (Cursor, etc.):** optional - also have VSCode extensions (I prefer Codex)
 
 ---
 
-### What matters most
+## What matters most
 
-* Running it once is already a win
-* Changing one knob and seeing different results is the goal
-* It’s okay to get stuck — this repo is mainly a **reference** for the live session
-
-Even just opening the repo and understanding how it’s organized will help you follow along and compare during the workshop.
+- Running it once is already a win.
+- Changing one knob and seeing different results is the goal.
+- It’s okay to get stuck — this repo is mainly a reference for the live session.
 
 ---
 
 ## What to prepare to share (optional)
 
-If you ran it successfully, please be ready to share **one** of the following in the live session:
-
-1. Your W&B run link **OR**
-2. A screenshot of:
-
-   * confusion matrix, or
-   * ROC plot, or
-   * “most confident wrong predictions” gallery
+If you ran it successfully, be ready to share one of:
+1. Your W&B run link **or**
+2. A screenshot of a confusion matrix, ROC plot, or “most confident wrong predictions” gallery
 
 And be ready to say:
+- what **one knob** you changed
+- what you noticed changed (or didn’t)
 
-* what **one knob** you changed
-* what you noticed changed (or didn’t)
-
-**No pressure to present.** Sharing is optional.
+Sharing is optional.
 
 ---
 
 ## Repo layout (how to navigate)
 
 ```text
-dermamnist-workflow-demo/
-├── train.py                      # single entry point (runs the full pipeline)
-├── configs/                       # experiment configs (what you edit)
-│   ├── fast.yaml
-│   ├── baseline.yaml
-│   └── chaos_aug.yaml
-├── src/                           # modular implementation
-│   ├── config/                    # defaults + config loading/merge
-│   ├── utils/                     # seed, device, paths
-│   ├── logging/                   # W&B logger
-│   ├── data/                      # dataset + transforms + loaders
-│   ├── models/                    # ResNet backbone + head
-│   ├── training/                  # train/validate loops + optimizer
-│   ├── evaluation/                # prediction + metrics
-│   ├── viz/                       # plots + image galleries
-│   └── pipeline/                  # run_experiment orchestrator
-├── outputs/                       # figures saved here (gitignored)
+medical-ai-starter-kit/
+├── train.py                        # single entry point (runs the full pipeline)
+├── Session_1_Launching_Your_AI_Research_Workflow.py
+├── configs/                        # experiment configs (what you edit)
+│   └── baseline.yaml
+├── src/                            # modular implementation
+│   ├── config/
+│   ├── data/
+│   ├── evaluation/
+│   ├── logging/
+│   ├── models/
+│   ├── pipeline/
+│   ├── training/
+│   ├── utils/
+│   └── viz/
+├── data/                           # downloaded datasets (gitignored)
+├── outputs/                        # figures and artifacts (gitignored)
+├── wandb/                          # local W&B run logs (gitignored)
 ├── environment.yml
 └── setup.sh
 ```
 
-**If you’re new to repos:** start with:
-
+If you’re new to repos, start with:
 1. `train.py`
-2. `configs/fast.yaml`
+2. `configs/baseline.yaml`
 3. `src/pipeline/run.py`
 
 ---
 
 ## Expected outputs
 
-After a run, you should see:
-
 **Saved locally in `./outputs/`:**
-
-* training curves (loss/accuracy)
-* confusion matrix
-* ROC curves (one-vs-rest, 7 classes)
-* sample images by class
-* “most confident wrong predictions” gallery
+- training curves (loss/accuracy)
+- confusion matrix
+- ROC curves (one-vs-rest, 7 classes)
+- sample images by class
+- “most confident wrong predictions” gallery
 
 **In W&B (if enabled):**
-
-* metrics (accuracy, macro-F1, macro AUC, per-class AUC)
-* plots and image artifacts
-* easy comparisons between runs after you change one knob
+- metrics (accuracy, macro-F1, macro AUC, per-class AUC)
+- plots and image artifacts
+- easy comparisons between runs after you change one knob
 
 ---
 
 ## Troubleshooting + common fallbacks
 
 ### 1) “It’s too slow”
-
-Try these config changes:
-
-* `data.subset_train: 800`
-* `data.subset_val: 200`
-* `train.epochs: 1`
-* `data.image_size: 96`
-* `train.batch_size: 32`
+- `data.subset_train: 800`
+- `data.subset_val: 200`
+- `train.epochs: 1`
+- `data.image_size: 96`
+- `train.batch_size: 32`
 
 ### 2) “I’m running out of memory / crashes”
-
-* reduce `train.batch_size` (e.g., 64 → 32 → 16)
-* reduce `data.image_size` (128 → 96)
-* reduce subsets
+- reduce `train.batch_size` (e.g., 64 → 32 → 16)
+- reduce `data.image_size` (128 → 96)
+- reduce subsets
 
 ### 3) “My storage is limited”
-
-* change dataset location:
-
+- change dataset location:
   ```yaml
   data:
     root: "/path/to/external_drive/data"
   ```
-* delete downloaded dataset in `data/` if needed (it can be re-downloaded)
-* conda envs can be large; consider cleaning:
-
+- delete the downloaded dataset in `data/` if needed (it can be re-downloaded)
+- conda envs can be large; consider cleaning:
   ```bash
   conda clean --all
   ```
 
 ### 4) “W&B isn’t working / I don’t want to make an account”
-
-No problem — disable it:
-
-```yaml
-wandb:
-  enabled: false
-```
-
-Or offline mode:
-
-```yaml
-wandb:
-  mode: offline
-```
+- disable it:
+  ```yaml
+  wandb:
+    enabled: false
+  ```
+- or offline mode:
+  ```yaml
+  wandb:
+    mode: offline
+  ```
 
 ### 5) Dependency issues (most common)
-
-* Confirm you activated the env:
-
+- confirm you activated the env:
   ```bash
   conda activate dermamnist-demo
   ```
-* Sanity check imports:
-
+- sanity check imports:
   ```bash
   python -c "import torch, torchvision, medmnist, sklearn, yaml; print('ok')"
   ```
 
 ### 6) Common warnings (usually safe to ignore)
-
-* PIL EXIF warnings, torchvision warnings, etc.
-* “CUDA not available” (expected on CPU)
-* “num_workers=0” (expected on portable setup)
+- PIL EXIF warnings, torchvision warnings, etc.
+- “CUDA not available” (expected on CPU)
+- “num_workers=0” (expected on portable setup)
 
 ### 7) “Wrong config file / typo in YAML”
-
-Symptoms:
-
-* KeyError (missing fields)
-* YAML parse errors
-
-Fix:
-
-* Start from `configs/fast.yaml` and make one change at a time
-* Watch indentation carefully (YAML is indentation-sensitive)
+- start from `configs/baseline.yaml` and make one change at a time
+- watch indentation carefully (YAML is indentation-sensitive)
 
 ### 8) “I edited the wrong file”
-
-Best practice:
-
-* Only edit files under `configs/` for this assignment
-* Don’t change `src/` unless you’re comfortable
+- only edit files under `configs/` for this assignment
+- avoid changing `src/` unless you’re comfortable
 
 ### 9) Bad usage patterns (avoid)
-
-* Changing 5 knobs at once (you won’t know what caused the change)
-* Setting `freeze_backbone: false` + high epochs on CPU (too slow)
-* Increasing `image_size` a lot (training gets much slower)
+- changing 5 knobs at once (hard to attribute changes)
+- setting `freeze_backbone: false` with high epochs on CPU (too slow)
+- increasing `image_size` a lot (training gets much slower)
 
 ---
 
 ## If you get stuck
 
-That’s normal.
+That’s normal. Aim for any of these checkpoints:
+- repo cloned and opened in VSCode
+- conda env created and activated
+- dataset downloaded
+- one run started
 
-If you have time, try to get to **any** of these checkpoints:
-
-* repo cloned + opened in VSCode
-* conda env created and activated
-* dataset downloaded
-* one run started (even if you stop it)
+Use ChatGPT or AI Coding tools from Step 6 to get unstuck! Simply copy-paste the error you are having or just describe it and ask it to help explain to you.
 
 Even partial progress gives you a concrete reference during the live session.
 
----
-
-## One-line summary
-
-**Optional pre-session repo to run a CPU-friendly DermMNIST classification experiment, log results to W&B, and learn the “real workflow” behind AI research projects.**
+Good Luck!
