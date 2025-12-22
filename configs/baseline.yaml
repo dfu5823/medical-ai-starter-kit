@@ -1,0 +1,51 @@
+seed: 42
+device: cpu
+
+data:
+  dataset: dermamnist
+  root: ./data
+  download: true
+  subset_train: 2000
+  subset_val: 500
+  num_workers: 0
+  pin_memory: false
+  image_size: 128 # 128 x 128 images - try changing this variable to 256 x 256 for higher-res input!
+
+aug:
+  aug_strength: light  # light | medium | chaos - try changing this variable to change data augmentation strength!
+  hflip: true
+  vflip: false
+  rotation_deg: 10
+  color_jitter: 0.05
+
+model:
+  backbone: resnet18
+  pretrained: true
+  freeze_backbone: true
+  dropout: 0.2
+
+train:
+  epochs: 2 # number of training epochs - try changing this variable to train for longer! (eg. try 5 or 10 epochs instead)
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  log_every_steps: 50
+
+outputs:
+  out_dir: ./outputs
+  save_figures: true
+  log_train_curves: true
+  log_confusion_matrix: true
+  log_roc_plot: true
+  log_sample_images: true
+  log_mistake_gallery: true
+  n_samples_per_class: 2
+  n_mistakes: 6
+
+wandb:
+  enabled: true
+  mode: online   # online | offline | disabled
+  project: mdai-dermamnist-demo
+  entity: null   # optional
+  run_name: null # optional
+  tags: ["session1", "workflow-demo"]

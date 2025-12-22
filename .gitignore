@@ -1,0 +1,15 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual envs
+.venv/
+
+# Data and run artifacts
+data/
+outputs/
+wandb/
+
+# OS / editor cruft
+.DS_Store

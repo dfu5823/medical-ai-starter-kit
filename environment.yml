@@ -1,0 +1,30 @@
+name: dermamnist-demo
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  # Core
+  - python=3.10
+  - pip
+
+  # PyTorch (CPU)
+  - pytorch=2.5.1
+  - torchvision=0.20.1
+  - cpuonly
+  # Image codec deps to avoid torchvision's libjpeg warning
+  - jpeg
+  # Keep NumPy on the 1.x line to match prebuilt torch/torchvision wheels
+  - numpy<2
+
+  # Common scientific stack
+  - matplotlib
+  - pyyaml
+  - scikit-learn
+
+  # Quality-of-life (optional but helpful)
+  - tqdm
+
+  # Install pip-only packages here
+  - pip:
+      - medmnist
+      - wandb
