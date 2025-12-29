@@ -78,4 +78,4 @@ echo
 echo "== Setup complete =="
 echo "Next steps:"
 echo "  conda activate ${ENV_NAME}"
-echo "  python train.py --config configs/fast.yaml   (or your single-file script)"
+echo "  python train.py --config configs/baseline.yaml"
