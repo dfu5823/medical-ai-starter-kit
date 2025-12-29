@@ -86,7 +86,7 @@ This repo is a small, realistic template you can reuse for future research proje
 bash setup.sh
 conda activate dermamnist-demo
 ```
-This creates the Python environment and installs required packages.
+This creates the Python environment and installs required packages. Type y and press "return" when asked if you would like to log in to Weights & Biases.
 
 ### Step 3 — (Recommended) Login to Weights & Biases (only needs to be done once, only if you didn't do this already)
 ```bash
