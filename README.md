@@ -9,6 +9,8 @@ Optional pre-session activity for **Session 1: Launching Your AI Research Workfl
 
 No pressure: even opening the repo and skimming the structure is useful.
 
+TL;DR Skip to "Assignment" Section
+
 ---
 
 ## Who this is for
@@ -60,7 +62,7 @@ This repo is a small, realistic template you can reuse for future research proje
 
 ---
 
-## Assignment (simple)
+## Assignment
 
 **Goal:** Run **one** experiment, then change **one** variable in the config and rerun it.
 
