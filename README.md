@@ -88,7 +88,7 @@ conda activate dermamnist-demo
 ```
 This creates the Python environment and installs required packages.
 
-### Step 3 — (Recommended) Login to Weights & Biases (only needs to be done once)
+### Step 3 — (Recommended) Login to Weights & Biases (only needs to be done once, only if you didn't do this already)
 ```bash
 wandb login
 ```

@@ -8,7 +8,7 @@ import torch
 from src.config import load_config
 from src.utils import set_seed, ensure_dir, now_str, get_device
 from src.logging import init_wandb, wandb_log_safe
-from src.data import load_dermamnist, subset_dataset, build_loaders
+from src.dataset import load_dermamnist, subset_dataset, build_loaders
 from src.models import build_model, get_trainable_params
 from src.training import train_one_epoch, validate_one_epoch, build_optimizer
 from src.evaluation import evaluate, compute_metrics_multiclass
